@@ -1,0 +1,64 @@
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+load("@rules_devicetree//devicetree:dtb.bzl", "dtb")
+load("@rules_devicetree//devicetree:devicetree_library.bzl", "devicetree_library")
+
+package(default_visibility = ["//vendor/nvidia:__subpackages__"])
+
+devicetree_library(
+    name = "all_nx_dtsi",
+    hdrs = glob([
+        "*.dtsi",
+    ]),
+    includes = ["."],
+)
+
+dtb(
+    name = "tegra210-odin.dtb",
+    srcs = ["tegra210-odin.dts"],
+    generate_symbols = True,
+    deps = [
+        ":all_nx_dtsi",
+        "//vendor/nvidia/kernel:all_nvidia_dts",
+    ],
+)
+
+dtb(
+    name = "tegra210b01-fric.dtb",
+    srcs = ["tegra210b01-fric.dts"],
+    generate_symbols = True,
+    deps = [
+        ":all_nx_dtsi",
+        "//vendor/nvidia/kernel:all_nvidia_dts",
+    ],
+)
+
+dtb(
+    name = "tegra210b01-odin.dtb",
+    srcs = ["tegra210b01-odin.dts"],
+    generate_symbols = True,
+    deps = [
+        ":all_nx_dtsi",
+        "//vendor/nvidia/kernel:all_nvidia_dts",
+    ],
+)
+
+dtb(
+    name = "tegra210b01-vali.dtb",
+    srcs = ["tegra210b01-vali.dts"],
+    generate_symbols = True,
+    deps = [
+        ":all_nx_dtsi",
+        "//vendor/nvidia/kernel:all_nvidia_dts",
+    ],
+)
+
+filegroup(
+    name = "dtbs",
+    srcs = [
+        "tegra210-odin.dtb",
+        "tegra210b01-fric.dtb",
+        "tegra210b01-odin.dtb",
+        "tegra210b01-vali.dtb",
+    ],
+)
